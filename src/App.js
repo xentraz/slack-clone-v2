@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+// Components
+import Header from './components/Header/Header';
+import Sidebar from './components/Sidebar/Sidebar';
+import Chat from './components/Chat/Chat';
+// Styles
+
+// React Router
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* React-Router --> Chat Screen */}
+      <Router>
+         {/* Header */}
+        <Header />
+        <div className="app-body">
+          <Sidebar />
+          {/* Sidebar */}
+          <Routes>
+            <Route path="/room?:roomId" element={<Chat/>}/>
+            {/* <Route path="/" /> */}
+          </Routes>
+          {/* Route checks the route you're in and render the appropriate screen */}
+        </div>
+      </Router>
+      {/* Wrap everything you want as default inside the router */}
     </div>
   );
-}
+} 
 
 export default App;
+
+// The react router will show the correct chat screen and switch channels without refreshing

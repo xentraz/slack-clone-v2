@@ -1,0 +1,31 @@
+@import '../../App.scss';
+
+.sidebarOption {
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+  cursor: pointer;
+
+  &-icon {
+    margin: 10px;
+    font-size: 0.9375rem !important;
+    color: $white;
+  }
+
+  &:hover {
+    opacity: 0.9;
+    background-color: $slack-color-dark;
+  }
+
+  &-channel {
+    padding: 10px 0;
+    font-weight: 300;
+
+    &-hash {
+      margin: 10px;
+      font-size: 0.9375rem;
+      color: $white;
+      font-weight: 600;
+    }
+  }
+}
