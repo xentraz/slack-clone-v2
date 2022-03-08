@@ -20,26 +20,25 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 
 
-
 function Sidebar() {
   const [channels, setChannels] = useState([]);
 
   useEffect(() => {
-    // run (once) this code when the compoennts (sidebar) loads
-    // runs only once because the dependancies in the array
     db.collection('rooms').onSnapshot(snapshot => (
       setChannels(snapshot.docs.map(doc => ({
         id: doc.id,
         name: doc.data().name
       })))
     ))
-      // docs.map loops over each of the documents 
-      // (for every doc you iterate over, return an object (), 
-      // which will be set into the channels variable)
-      // access the rooms collection in firebase and set the state to the snapshot
-    
-      // take a live snapshot of the collection(rooms)
   }, []);
+    // run this code (once) when the compoennts (sidebar) loads
+    // runs only once because the dependancies in the array
+
+    // docs.map loops over each of the documents 
+    // (for every doc you iterate over, return an object (), 
+    // which will be set into the channels variable)
+    // access the rooms collection in firebase and set the state to the snapshot
+    // take a live snapshot of the collection(rooms)
 
   return (
     <div className="sidebar">
@@ -75,7 +74,6 @@ function Sidebar() {
     </div>
   )
 }
-
 export default Sidebar;
 
 // Collection = an array of stuff
