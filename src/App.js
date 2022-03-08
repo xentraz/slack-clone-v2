@@ -21,7 +21,7 @@ function App() {
             <Route path="/room?:roomId" element={<Chat/>}/>
             {/* <Route path="/" /> */}
           </Routes>
-          {/* Route checks the route you're in and render the appropriate screen */}
+          {/* Route checks the route you're in and renders the appropriate screen */}
         </div>
       </Router>
       {/* Wrap everything you want as default inside the router */}
