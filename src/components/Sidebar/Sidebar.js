@@ -1,12 +1,11 @@
 // Components
 import React, { useEffect, useState } from 'react';
-import SidebarOption from '../sidebarOption/sidebarOption';
+import SidebarOption from '../SidebarOption/SidebarOption';
 // firebase
-import db from '../../firebase';
+import database from '../../firebase';
 // Styles
-import './sidebar.scss';
+import '../../scss/styles.scss';
 // Material-UI
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import CreateIcon from '@mui/icons-material/Create';
 import InsertCommentIcon from '@mui/icons-material/InsertComment';
 import InboxIcon from '@mui/icons-material/Inbox';
@@ -24,7 +23,7 @@ function Sidebar() {
   const [channels, setChannels] = useState([]);
 
   useEffect(() => {
-    db.collection('rooms').onSnapshot(snapshot => (
+    database.collection('rooms').onSnapshot(snapshot => (
       setChannels(snapshot.docs.map(doc => ({
         id: doc.id,
         name: doc.data().name
@@ -45,16 +44,14 @@ function Sidebar() {
       <div className="sidebar-header">
         <div className="sidebar-header-info">
           <h2>Xentraz Tech</h2>
-          <h3>
-            {/* Status */}
+          {/* <h3>
             <FiberManualRecordIcon className="statusIcon"/> Emma Thurmer
-          </h3>
+          </h3> */}
         </div>
         {/* Edit Icon */}
         <CreateIcon className="editIcon" />
       </div>
       <SidebarOption Icon={InsertCommentIcon} title="Threads" />
-      <SidebarOption title="Youtube" />
       <SidebarOption Icon={InboxIcon} title="Mentions & reactions" />
       <SidebarOption Icon={DraftsIcon} title="Saved items" />
       <SidebarOption Icon={BookmarkBorderIcon} title="Channel browser" />
@@ -65,9 +62,8 @@ function Sidebar() {
       <hr/>
       <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
       <hr/>
-      <SidebarOption Icon={AddIcon} addChannelOption="" title="Add Channel" />
-      {/* Connect to dB and list all the channels */}
-      {/* <SidebarOption/> */}
+      <SidebarOption Icon={AddIcon} addChannelOption title="Add Channel" />
+      {/* Connect to database and list all the channels */}
       {channels.map(channel => (
         <SidebarOption key={channel.id} title={channel.name} />
       ))}

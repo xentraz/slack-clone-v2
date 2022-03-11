@@ -1,15 +1,77 @@
 import * as React from 'react';
-import './chat.scss';
+import { useEffect, useState } from 'react';
+// Styles
+import '../../scss/styles.scss';
+// React Router
 import { useParams } from "react-router-dom";
+// Mterial-UI
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import InfoIcon from '@mui/icons-material/Info';
+// Firebase
+import database from '../../firebase';
+import { getDocs, collectionGroup, query } from 'firebase/firestore'
+// import { DataArray } from '@mui/icons-material';
+// import { onSnapshot } from 'firebase/firestore';
 
-function Chat() {
- const {roomId} = useParams();
+const Chat = () => {
+ const { roomId } = useParams();
+ const [roomDetails, setRoomDetails] = useState(null);
+ const [messages, setMessages] = useState();
+
+  useEffect(() => {
+    
+    if (roomId) {
+      database.collection('rooms').onSnapshot(
+        (docSnapshot) => {
+        docSnapshot.forEach((doc) => {
+          // console.log(doc.data())
+          return (setRoomDetails(doc.data()))
+        })
+      })
+    }
+
+    const fetchRooms = async () => {
+      const response = query(collectionGroup(database, 'messages'))
+      // console.log('response:', response)
+      const data = await getDocs(response)
+      console.log('data:', data)
+      const messages = [];
+      data.forEach((doc) => {
+        console.log('doc:', doc.data())
+        if(doc.data().roomAlias === roomId) {
+          return messages.push(doc.data())
+        }
+      })
+       setMessages(messages)
+    }
+    fetchRooms();
+
+  }, [roomId])
+
+  console.log('room details:', roomDetails);
+  console.log("messages:", messages);
+  // Using decoupled code that are not dependent on each other but work off each other.
 
   return (
-    <div className="chat">
-      <h2>You are in the {roomId} room</h2>
-    </div>
+    <>
+      <div className="chat">
+        <div className="chat-header">
+          <div className="chat-header-left">
+            <h3>
+              <strong># {messages[0]?.roomAlias}</strong>  
+              <KeyboardArrowDownIcon />
+            </h3>
+          </div>
+          <div className="chat-header-right">
+            <p>
+              <InfoIcon />
+              Details
+            </p>
+          </div>
+        </div>
+      </div>
+    </>
   )
-};
+}
 
 export default Chat;

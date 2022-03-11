@@ -1,20 +1,13 @@
-@import '../../App.scss';
-
 .sidebarOption {
   display: flex;
   align-items: center;
-  font-size: 0.75rem;
+  font-size: 15px;
   cursor: pointer;
 
-  &-icon {
+  & svg {
     margin: 10px;
-    font-size: 0.9375rem !important;
+    font-size: 1rem;
     color: $white;
-  }
-
-  &:hover {
-    opacity: 0.9;
-    background-color: $slack-color-dark;
   }
 
   &-channel {
@@ -27,5 +20,13 @@
       color: $white;
       font-weight: 600;
     }
+  }
+
+  &:hover {
+    background-color: $slack-color-hover;
+  }
+
+  &:active {
+    background-color: $slack-color-light;
   }
 }

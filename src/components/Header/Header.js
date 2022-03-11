@@ -1,7 +1,7 @@
 // Components
 import React from 'react';
 // Styles
-import './header.scss';
+import '../../scss/styles.scss';
 // Material UI
 import { Avatar } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';

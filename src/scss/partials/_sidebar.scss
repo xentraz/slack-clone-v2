@@ -1,20 +1,22 @@
-@import '../../App.scss';
-
 .sidebar {
-  background-color: $slack-color;
-  border-top: 1px solid $slack-color-lighter;
+  flex: 0.3;
+  background-color: $slack-grey-dark;
+  border-top: 1px solid $slack-grey;
+  border-right: 1px solid $slack-grey;
   max-width: 260px;
-  color: $white;
+  overflow-y: scroll;
 
   &-header {
     display: flex;
-    border-bottom: 1px solid $slack-color-lighter;
-    padding: 13px 13px 10px 13px;
+    align-items: center;
+    border-bottom: 1px solid $slack-grey;
+    padding: 20px;
+    min-height: 75px;
 
     // Edit Icon
     & .editIcon {
       padding: 5px;
-      color: $slack-color-lighter;
+      color: $slack-color-light;
       font-size: 1.5rem;
       background-color: $white;
       border-radius: 50%;
@@ -23,16 +25,9 @@
     &-info {
       flex: 1;
 
-      & h2 {
-        font-size: 1rem;
-        font-weight: 900;
-        margin-bottom: 5px;
-      }
-
       & h3 {
         display: flex;
         align-items: center;
-        font-size: 0.8125rem;
 
         // Status Icon
         & .statusIcon {
@@ -46,6 +41,6 @@
 
   & hr {
     margin: 10px 0;
-    border: 1px solid $slack-color-lighter;
+    border: 1px solid $slack-grey;
   }
 }

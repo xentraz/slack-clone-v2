@@ -18,7 +18,8 @@ function App() {
           <Sidebar />
           {/* Sidebar */}
           <Routes>
-            <Route path="/room?:roomId" element={<Chat/>}/>
+            <Route exact path="/room" element={<Chat/>}/>
+            <Route path="/:roomId" element={<Chat/>}/>
             {/* <Route path="/" /> */}
           </Routes>
           {/* Route checks the route you're in and renders the appropriate screen */}

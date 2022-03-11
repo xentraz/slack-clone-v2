@@ -7,6 +7,7 @@ import 'firebase/compat/auth';
 const firebaseConfig = {
   apiKey: "AIzaSyDaYuP9rm4sv8ZifNxXPAO0JyBjzdnIw5U",
   authDomain: "slack-clone-2da23.firebaseapp.com",
+  databaseURL: "https://slack-clone-2da23-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "slack-clone-2da23",
   storageBucket: "slack-clone-2da23.appspot.com",
   messagingSenderId: "961037750628",
@@ -16,7 +17,7 @@ const firebaseConfig = {
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 // Connect to firebase app 
-const db = firebaseApp.firestore();
+const database = firebaseApp.firestore();
 // Connect to firebase database
 const auth = firebase.auth();
 // Connect to firebase authentication
@@ -25,5 +26,5 @@ const provider = new firebase.auth.GoogleAuthProvider();
 
 export { auth, provider };
 // Export auth and provider for use in (one) other file
-export default db;
-// Export db for use in other other files
+export default database;
+// Export database for use in other other files
