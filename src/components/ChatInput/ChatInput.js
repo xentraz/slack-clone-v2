@@ -1,12 +1,12 @@
 // React
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // Styles 
 import '../../scss/styles.scss';
 // Firebase
 import database from '../../firebase';
-import firebase from '../../firebase';
+// import firebase from '../../firebase';
 // import { addDoc } from 'firebase/firestore'
-import { doc, collection, addDoc } from 'firebase/firestore';
+// import { doc, collection, addDoc, getDocs, query, where } from 'firebase/firestore';
 
 // Components
 import { useStateValue } from '../StateProvider/StateProvider';
@@ -16,42 +16,20 @@ function ChatInput({ channelName, channelId }) {
 
   const [input, setInput] = useState('');
   const [{ user }] = useStateValue();
+
   
   const sendMessage = e => {
     e.preventDefault();
-    // let data = {
-    //   message: input,
-    //   timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    //   user: user.displayName,
-    //   userImage: user.photoURL, 
-    // }
 
-    const docRef = doc(database, 'rooms', channelId);
-    const colRef = collection(docRef, 'messages');
-    console.log('colRef', colRef);
-    addDoc(colRef, {
+    const message = database.collection('rooms').doc(channelId).collection('messages');
+    const inputMessage = {
       message: input,
-      timestamp: firebase.firestore.FieldValue.server(),
+      timestamp: Date.now(),
       user: user.displayName,
       userImage: user.photoURL, 
-    })
-    
-    // if(channelId) {
-    //   const test = collection(database, 'rooms', channelId, 'messages')
-    //   console.log('test:', test)
-    //   // .set({
-    //   //   message: input,
-    //   //   timestamp: firebase.firestore.FieldValue.server(),
-    //   //   user: user.displayName,
-    //   //   userImage: user.photoURL, 
-    //   // })
-    //   // .then(() => {
-    //   //   console.log("Document was successfully created")
-    //   // })
-    //   // .catch(err => {
-    //   //   console.log("Error", err);
-    //   // })
-    // }
+    }
+    console.log('inputMessage:',inputMessage );
+    message.add(inputMessage);
   }
 
   return (
