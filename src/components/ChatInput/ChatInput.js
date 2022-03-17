@@ -1,12 +1,11 @@
 // React
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 // Styles 
 import '../../scss/styles.scss';
 // Firebase
 import database from '../../firebase';
-// import firebase from '../../firebase';
-// import { addDoc } from 'firebase/firestore'
-// import { doc, collection, addDoc, getDocs, query, where } from 'firebase/firestore';
+import firebase from "firebase/compat/app";
+// import { add } from 'firebase/firestore';
 
 // Components
 import { useStateValue } from '../StateProvider/StateProvider';
@@ -22,9 +21,10 @@ function ChatInput({ channelName, channelId }) {
     e.preventDefault();
 
     const message = database.collection('rooms').doc(channelId).collection('messages');
+    const time = {seconds: Date.now(), nanoseconds: 0};
     const inputMessage = {
       message: input,
-      timestamp: Date.now(),
+      timestamp: new firebase.firestore.Timestamp(time),
       user: user.displayName,
       userImage: user.photoURL, 
     }

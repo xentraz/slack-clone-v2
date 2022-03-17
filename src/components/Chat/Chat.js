@@ -39,7 +39,7 @@ const Chat = () => {
       const messages = [];
       data.forEach((doc) => {
         console.log('doc:', doc.data())
-        if(doc.data().roomAlias.toLowerCase() === roomId) {
+        if(doc.data().roomAlias === roomId) {
           return messages.push(doc.data())
         }
       })
