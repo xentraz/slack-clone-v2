@@ -1,6 +1,7 @@
 // Components
 import React, { useEffect, useState } from 'react';
 import SidebarOption from '../SidebarOption/SidebarOption';
+import { useStateValue } from '../StateProvider/StateProvider';
 // firebase
 import database from '../../firebase';
 // Styles
@@ -17,10 +18,12 @@ import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 
 function Sidebar() {
   const [channels, setChannels] = useState([]);
+  const [{user}] = useStateValue();
 
   useEffect(() => {
     database.collection('rooms').onSnapshot(snapshot => (
@@ -44,9 +47,10 @@ function Sidebar() {
       <div className="sidebar-header">
         <div className="sidebar-header-info">
           <h2>Xentraz Tech</h2>
-          {/* <h3>
-            <FiberManualRecordIcon className="statusIcon"/> Emma Thurmer
-          </h3> */}
+          <h3>
+            <FiberManualRecordIcon className="statusIcon"/>
+            {user?.displayName}
+          </h3>
         </div>
         {/* Edit Icon */}
         <CreateIcon className="editIcon" />

@@ -8,6 +8,7 @@ body {
   background-color: $slack-grey-dark;
   overflow: hidden;
   color: $slack-grey-light;
+  font-size: 15px;
   font-family: 'Lato', sans-serif;
 }
 
@@ -18,4 +19,9 @@ h2 {
 
 h3 {
   font-weight: 400;
+}
+
+h4 {
+  font-size: 15px;
+  font-weight: 900;
 }

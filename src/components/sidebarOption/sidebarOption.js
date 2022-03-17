@@ -52,25 +52,3 @@ function SidebarOption({Icon, title, id, addChannelOption}) {
 export default SidebarOption;
 
 // This is a reusable component for all sidebar options.
-
-
-
-  // const deleteChannel = () => {
-  //   const channelName = alert(
-  //     "Are you sure you want to delete '" + title + "' ?",
-  //     [
-  //       {
-  //         text: "Cancel",
-  //         onPress: () => console.log("Cancel Pressed"),
-  //         style: "cancel"
-  //       },
-  //       { text: "OK", onPress: () => console.log("OK Pressed") }
-  //     ]
-  //   );
-
-  //   if(channelName) {
-  //     database.collection('rooms').doc(id).delete({
-  //       name: channelName,
-  //     });
-  //   }
-  // }

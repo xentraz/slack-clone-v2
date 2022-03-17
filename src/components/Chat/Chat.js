@@ -10,8 +10,9 @@ import InfoIcon from '@mui/icons-material/Info';
 // Firebase
 import database from '../../firebase';
 import { getDocs, collectionGroup, query } from 'firebase/firestore'
-// import { DataArray } from '@mui/icons-material';
-// import { onSnapshot } from 'firebase/firestore';
+// Components
+import Messages from '../Messages/Messages';
+import ChatInput from '../ChatInput/ChatInput';
 
 const Chat = () => {
  const { roomId } = useParams();
@@ -38,7 +39,7 @@ const Chat = () => {
       const messages = [];
       data.forEach((doc) => {
         console.log('doc:', doc.data())
-        if(doc.data().roomAlias === roomId) {
+        if(doc.data().roomAlias.toLowerCase() === roomId) {
           return messages.push(doc.data())
         }
       })
@@ -58,7 +59,7 @@ const Chat = () => {
         <div className="chat-header">
           <div className="chat-header-left">
             <h3>
-              <strong># {messages[0]?.roomAlias}</strong>  
+              <strong># {roomId}</strong>  
               <KeyboardArrowDownIcon />
             </h3>
           </div>
@@ -69,6 +70,10 @@ const Chat = () => {
             </p>
           </div>
         </div>
+        <div className="chat-body">
+          <Messages messages={messages} />
+        </div>
+        <ChatInput channelName={roomDetails?.name} channelId={roomDetails?.id}/>
       </div>
     </>
   )
