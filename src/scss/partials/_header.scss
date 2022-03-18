@@ -6,6 +6,10 @@
   background-color: $slack-color;
   color: $white;
 
+  &:hover {
+    color: $slack-grey-dark;
+  }
+
   &-left {
     flex: 0.3;
     display: flex;

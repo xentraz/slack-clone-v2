@@ -5,10 +5,12 @@ import '../../scss/styles.scss';
 // Firebase
 import database from '../../firebase';
 import firebase from "firebase/compat/app";
-// import { add } from 'firebase/firestore';
-
+// Material UI
+import SendIcon from '@mui/icons-material/Send';
 // Components
 import { useStateValue } from '../StateProvider/StateProvider';
+import { DateRange } from '@mui/icons-material';
+// import { serverTimestamp } from 'firebase/firestore';
 
 function ChatInput({ channelName, channelId }) {
   console.log('Channel Name', channelName);
@@ -21,10 +23,11 @@ function ChatInput({ channelName, channelId }) {
     e.preventDefault();
 
     const message = database.collection('rooms').doc(channelId).collection('messages');
-    const time = {seconds: Date.now(), nanoseconds: 0};
+    const serverTimestamp = ((new Date()), (new window.Date()));
+    // const time = ({seconds: Date.now(), nanoseconds: 0 });
     const inputMessage = {
       message: input,
-      timestamp: new firebase.firestore.Timestamp(time),
+      timestamp: new firebase.firestore.Timestamp(serverTimestamp),
       user: user.displayName,
       userImage: user.photoURL, 
     }
@@ -33,14 +36,19 @@ function ChatInput({ channelName, channelId }) {
   }
 
   return (
-    <div className="chatInput">
-      <form>
+    <div className="chat-input">
+      <form className="chat-input-form">
         <input 
         vlaue={input}
+        className="chat-input-form-text"
         onChange={e => setInput(e.target.value)}
         placeholder={`Message ${channelName?.toLowerCase()}`} 
         />
-        <button type="submit" onClick={sendMessage}>SEND</button>
+        <button 
+        type="submit" 
+        className="chat-input-form-btn"
+        onClick={sendMessage}><SendIcon/>
+        </button>
       </form>
     </div>
    )

@@ -1,0 +1,50 @@
+.chat-input {
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  margin: 20px;
+  display: flex;
+  flex-grow: 1;
+  flex: 0.7;
+  height: 150px;
+
+  &-form {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    background-color: $slack-grey;
+    border: 0.5px solid $slack-grey;
+    border-radius: 6px;
+
+    &-text {
+      height: 100%;
+      width: 73.5vw;
+      text-align: bottom;
+      background-color: transparent;
+      border: none;
+      color: $white;
+      outline: none;
+
+      ::placeholder {
+        color: $slack-grey-light;
+      }
+    }
+
+    &-btn {
+      height: 40px;
+      width: 40px;
+      border-radius: 5px;
+      background-color: $slack-grey;
+      color: $white;
+      border: none;
+      margin-left: 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $green-btn;
+      }
+    }
+  }
+}
