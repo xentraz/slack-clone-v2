@@ -12,12 +12,12 @@ const Messages = ({messages}) => {
         return (
           <div className="message" key={id}>
             <div className="message-date">
-              <p>{new Date(timestamp)?.toUTCString().slice(0, 16)}<KeyboardArrowDownIcon/></p>
+              <p>{new Date(timestamp?.toDate()).toUTCString().slice(0, 16)}<KeyboardArrowDownIcon/></p>
             </div>
             <div className="message-content">
              <img src={userImage} alt=""/>
              <div className="message-content-info">
-                <h4>{user} <span className="message-content-info-time">{new Date(timestamp)?.toUTCString().slice(16, 22)}</span> </h4>
+                <h4>{user} <span className="message-content-info-time">{new Date(timestamp?.toDate()).toUTCString().slice(16, 22)}</span> </h4>
                 <p>{message}</p>
               </div>
             </div>

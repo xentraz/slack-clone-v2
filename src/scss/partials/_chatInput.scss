@@ -1,12 +1,13 @@
 .chat-input {
-  position: absolute;
+  position: fixed;
   z-index: 2;
-  bottom: 0;
-  margin: 20px;
+  bottom: 20px;
+  margin: 20px 20px 0 20px;
   display: flex;
   flex-grow: 1;
   flex: 0.7;
   height: 150px;
+  overflow-y: scroll;
 
   &-form {
     padding: 5px;

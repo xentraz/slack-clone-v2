@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
+// import { useSeletor } from 'react-redux';
 // Styles
 import '../../scss/styles.scss';
 // React Router
@@ -9,7 +10,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import InfoIcon from '@mui/icons-material/Info';
 // Firebase
 import database from '../../firebase';
-import { getDocs, collectionGroup, query } from 'firebase/firestore'
+import { getDoc, getDocs, collectionGroup, query, collection } from 'firebase/firestore'
 // Components
 import Messages from '../Messages/Messages';
 import ChatInput from '../ChatInput/ChatInput';
@@ -22,35 +23,59 @@ const Chat = () => {
   useEffect(() => {
     
     if (roomId) {
-      database.collection('rooms').onSnapshot(
-        (docSnapshot) => {
-        docSnapshot.forEach((doc) => {
-          // console.log(doc.data())
-          return (setRoomDetails(doc.data()))
-        })
-      })
+      const fetchRoomId = async () => {
+        const roomIds = database.collection('rooms').doc(roomId);
+        const docSnap = await getDoc(roomIds);
+
+        console.log('new room id test:', docSnap)
+        setRoomDetails(docSnap);
+      } 
+      fetchRoomId();
     }
 
-    const fetchRooms = async () => {
-      const response = query(collectionGroup(database, 'messages'))
-      // console.log('response:', response)
-      const data = await getDocs(response)
-      console.log('data:', data)
-      const messages = [];
+    // const fetchRooms = async () => {
+    //   // const response = query(collection(database, 'messages'))
+    //   const response = database.collection('messages');
+
+    //   const data = await getDocs(response)
+    //   const messages = [];
+    //   console.log('roomid >>>', roomId);
+
+    //   data.forEach((doc) => {
+    //     console.log('doc room messages:', doc.data())
+    //     if(doc.data().roomAlias === roomId) {
+    //       return messages.push(doc.data());
+    //     }
+    //   })
+    //    setMessages(messages)
+
+    // }
+    // fetchRooms();
+
+
+    const unSubMessages = database.collection('messages').onSnapshot((snap) => {
+      const filteredMessages = []
+      const data = snap.docs.map((doc) => doc);
+      console.log('data ?>>>', data) 
       data.forEach((doc) => {
-        console.log('doc:', doc.data())
         if(doc.data().roomAlias === roomId) {
-          return messages.push(doc.data())
+          console.log('doc data', doc.data())
+          return filteredMessages.push(doc.data());
         }
       })
-       setMessages(messages)
-    }
-    fetchRooms();
+      console.log('filteredMessages', filteredMessages)
+      setMessages(filteredMessages.sort((a, b) => a.timestamp - (b.timestamp)))
+    });
 
+    return () => {
+      unSubMessages();
+    }
   }, [roomId])
 
-  console.log('room details:', roomDetails);
+  console.log('first room details:', roomId);
   console.log("messages:", messages);
+  // console.log('roomDetails:', roomDetails);
+
   // Using decoupled code that are not dependent on each other but work off each other.
 
   return (
@@ -73,7 +98,7 @@ const Chat = () => {
         <div className="chat-body">
           <Messages messages={messages} />
         </div>
-        <ChatInput channelName={roomDetails?.name} channelId={roomDetails?.id}/>
+        <ChatInput channelName={roomDetails?.id} channelId={roomId} message/>
       </div>
     </>
   )
