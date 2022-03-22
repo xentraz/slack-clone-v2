@@ -14,24 +14,13 @@ import { DateRange } from '@mui/icons-material';
 // import { serverTimestamp } from 'firebase/firestore';
 
 function ChatInput({ channelName, channelId }) {
-  // console.log('Channel Name', channelName);
-  // console.log('Channel Id', channelId);
-  // const inputRef = useRef(null);
+  // const chatRef = useRef(null);
   const [input, setInput] = useState('');
   const [{ user }] = useStateValue();
 
   const sendMessage = async( e ) => {
     e.preventDefault();
 
-      // data.forEach((doc) => {
-      //   console.log('doc room messages:', doc.data())
-      //   if(doc.data().roomAlias === roomId) {
-      //     return messages.push(doc.data());
-      //   }
-      // })
-
-    // const message = database.collection('rooms').doc(channelId).collection('messages');
-    // console.log('message:', message);
     const inputMessage = {
       message: input,
       timestamp: Timestamp.fromDate(new Date()),
@@ -47,6 +36,8 @@ function ChatInput({ channelName, channelId }) {
       console.log('await message test', test)
     } catch (error) {
       console.error(error);
+    } finally {
+      setInput('');
     }
   }
 
@@ -55,7 +46,6 @@ function ChatInput({ channelName, channelId }) {
       <form className="chat-input-form">
         <input 
         vlaue={input}
-        // ref={inputRef}
         className="chat-input-form-text"
         onChange={e => setInput(e.target.value)}
         placeholder={`Message #${channelName?.toLowerCase()}`} 

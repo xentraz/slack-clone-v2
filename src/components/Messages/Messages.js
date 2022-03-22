@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 // Styles
 import '../../scss/styles.scss';
 // Material UI
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const Messages = ({messages}) => {  
+  // const divRef = useRef(null);
+  
+  // useEffect(() => {
+  //   divRef.current.scrollIntoView({ behavior: 'smooth' });
+  // })
+
   return (
     <div className="chat-messages">
       {messages?.map(({id, user, userImage, message, timestamp}) => {
@@ -24,7 +30,7 @@ const Messages = ({messages}) => {
           </div>
           )
       })}
-      </div>
+    </div>
   )
 };
 

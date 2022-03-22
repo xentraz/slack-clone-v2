@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 // import { useSeletor } from 'react-redux';
 // Styles
 import '../../scss/styles.scss';
@@ -19,6 +19,7 @@ const Chat = () => {
  const { roomId } = useParams();
  const [roomDetails, setRoomDetails] = useState(null);
  const [messages, setMessages] = useState();
+ const chatRef = useRef(null);
 
   useEffect(() => {
     
@@ -33,27 +34,7 @@ const Chat = () => {
       fetchRoomId();
     }
 
-    // const fetchRooms = async () => {
-    //   // const response = query(collection(database, 'messages'))
-    //   const response = database.collection('messages');
-
-    //   const data = await getDocs(response)
-    //   const messages = [];
-    //   console.log('roomid >>>', roomId);
-
-    //   data.forEach((doc) => {
-    //     console.log('doc room messages:', doc.data())
-    //     if(doc.data().roomAlias === roomId) {
-    //       return messages.push(doc.data());
-    //     }
-    //   })
-    //    setMessages(messages)
-
-    // }
-    // fetchRooms();
-
-
-    const unSubMessages = database.collection('messages').onSnapshot((snap) => {
+    const fetchMessages = database.collection('messages').onSnapshot((snap) => {
       const filteredMessages = []
       const data = snap.docs.map((doc) => doc);
       console.log('data ?>>>', data) 
@@ -68,15 +49,19 @@ const Chat = () => {
     });
 
     return () => {
-      unSubMessages();
+      fetchMessages();
     }
   }, [roomId])
 
-  console.log('first room details:', roomId);
-  console.log("messages:", messages);
-  // console.log('roomDetails:', roomDetails);
-
   // Using decoupled code that are not dependent on each other but work off each other.
+ 
+  const scrollToBottom = () => {
+    chatRef.current.scrollIntoView({ behavior: "smooth" })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [roomId, messages])
 
   return (
     <>
@@ -97,6 +82,7 @@ const Chat = () => {
         </div>
         <div className="chat-body">
           <Messages messages={messages} />
+          <div ref={chatRef} className="chat-body-bottom"></div>
         </div>
         <ChatInput channelName={roomDetails?.id} channelId={roomId} message/>
       </div>
