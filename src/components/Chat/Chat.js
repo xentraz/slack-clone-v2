@@ -33,6 +33,7 @@ const Chat = () => {
       } 
       fetchRoomId();
     }
+    // Fetched the soom ID and sets it for the chat input and messages 
 
     const fetchMessages = database.collection('messages').onSnapshot((snap) => {
       const filteredMessages = []
@@ -47,6 +48,7 @@ const Chat = () => {
       console.log('filteredMessages', filteredMessages)
       setMessages(filteredMessages.sort((a, b) => a.timestamp - (b.timestamp)))
     });
+    // Sets messages and loads them instantly using the onSnapshot
 
     return () => {
       fetchMessages();

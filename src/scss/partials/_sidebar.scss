@@ -4,7 +4,8 @@
   border-top: 1px solid $slack-grey;
   border-right: 1px solid $slack-grey;
   max-width: 260px;
-  overflow-y: scroll;
+  height: 100%;
+  overflow-y: scroll !important;
 
   &-header {
     display: flex;

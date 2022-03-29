@@ -34,10 +34,10 @@ function ChatInput({ channelName, channelId }) {
     try {
       const test =  await addDoc(collection(database, 'messages'), inputMessage);
       console.log('await message test', test)
+      setInput('');
     } catch (error) {
       console.error(error);
     } finally {
-      setInput('');
     }
   }
 
